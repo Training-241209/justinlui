@@ -1,11 +1,14 @@
 package com.reimbursementsystem.employeereimbursementsystem.service;
 
-import com.reimbursementsystem.employeereimbursementsystem.repository.ReimbursementRepository;
-import com.reimbursementsystem.employeereimbursementsystem.entity.Reimbursement;
-import com.reimbursementsystem.employeereimbursementsystem.entity.Account;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.reimbursementsystem.employeereimbursementsystem.entity.Account;
+import com.reimbursementsystem.employeereimbursementsystem.entity.Reimbursement;
+import com.reimbursementsystem.employeereimbursementsystem.repository.ReimbursementRepository;
 @Service
 public class ReimbursementService {
     @Autowired
@@ -52,6 +55,20 @@ public class ReimbursementService {
         }
         Reimbursement pulledReimbursement = this.reimbursementRepository.findByReimbId(reimbursement.getReimbId());
         pulledReimbursement.setStatus(newStatus);
+        return pulledReimbursement;
+    }
+
+    public List<Reimbursement> getAllReimbursementsByAccountId(Account account){
+        List<Reimbursement> reimbursements = this.reimbursementRepository.findAllByAccount(account);
+        return reimbursements;
+    }
+
+    public Reimbursement deleteReimbursement(int reimbId){
+        Reimbursement pulledReimbursement = this.reimbursementRepository.findByReimbId(reimbId);
+        if(pulledReimbursement==null){
+            return null;
+        }
+        this.reimbursementRepository.delete(pulledReimbursement);
         return pulledReimbursement;
     }
 

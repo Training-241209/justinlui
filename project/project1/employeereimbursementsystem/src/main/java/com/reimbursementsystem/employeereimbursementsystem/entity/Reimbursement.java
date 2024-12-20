@@ -16,7 +16,7 @@ public class Reimbursement {
     @Column(name = "status")
     private String statusName;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "accountIdfk", referencedColumnName = "accountId")
     private Account account;
 

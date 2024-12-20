@@ -1,12 +1,11 @@
 package com.reimbursementsystem.employeereimbursementsystem.service;
 
-import com.reimbursementsystem.employeereimbursementsystem.repository.RoleRepository;
-
-import com.reimbursementsystem.employeereimbursementsystem.entity.Role;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.reimbursementsystem.employeereimbursementsystem.entity.Role;
+import com.reimbursementsystem.employeereimbursementsystem.repository.RoleRepository;
 
 @Service
 @Transactional
@@ -31,4 +30,9 @@ public class RoleService{
           
     }
 
+    public Role updateRole(Role role,String newRole){
+        Role pulledRole = getRoleByName(role.getRoleName());
+        pulledRole.setRole(newRole);
+        return pulledRole;
+    }
 }

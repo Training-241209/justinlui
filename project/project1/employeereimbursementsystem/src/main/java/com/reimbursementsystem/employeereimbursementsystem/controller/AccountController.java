@@ -1,13 +1,17 @@
 package com.reimbursementsystem.employeereimbursementsystem.controller;
 
-import com.reimbursementsystem.employeereimbursementsystem.entity.Account;
-import com.reimbursementsystem.employeereimbursementsystem.service.AccountService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.reimbursementsystem.employeereimbursementsystem.entity.Account;
+import com.reimbursementsystem.employeereimbursementsystem.service.AccountService;
 
 @RestController
 @RequestMapping("/account")
@@ -31,17 +35,18 @@ public class AccountController {
     }
     @GetMapping("/accounts/{username}")
     public ResponseEntity retrievedAccount(@PathVariable String username) {
-        Account pulledAccount = accountService.getAccountByUsername(username);
+        Account pulledAccount = this.accountService.getAccountByUsername(username);
         if(pulledAccount == null){
             return ResponseEntity.status(409).body(pulledAccount);
         }
         return ResponseEntity.status(200).body(pulledAccount);
     }
-    // @DeleteMapping("/accounts/{username}")
-    // public ResponseEntity deleteAccount(@PathVariable String username) {
-    //     if(deletedAccount == null){
-    //         return ResponseEntity.status(409).body(username);
-    //     }
-    //     return ResponseEntity.status(409).body(deletedAccount);
-    // }
+    @DeleteMapping("/accounts/{username}")
+    public ResponseEntity deleteAccount(@PathVariable String username) {
+        Account deletedAccount = this.accountService.deleteAccount(username);
+        if(deletedAccount == null){
+            return ResponseEntity.status(409).body(username);
+        }
+        return ResponseEntity.status(200).body(deletedAccount);
+    }
 }
