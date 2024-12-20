@@ -49,4 +49,14 @@ public class AccountController {
         }
         return ResponseEntity.status(200).body(deletedAccount);
     }
+    @PostMapping("/accounts/login")
+    public ResponseEntity login(@RequestBody Account account) {
+        Account pulledAccount = this.accountService.login(account);
+        System.out.println("FDSAFASFDSAFASF"+pulledAccount);
+        if(pulledAccount == null){
+            return ResponseEntity.status(409).body(pulledAccount);
+        }
+        return ResponseEntity.status(200).body(pulledAccount);         
+    }
+    
 }

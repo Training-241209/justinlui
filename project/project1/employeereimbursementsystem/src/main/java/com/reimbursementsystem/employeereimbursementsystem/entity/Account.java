@@ -46,6 +46,10 @@ public class Account {
         this.role = new Role();
         this.reimbursement = new ArrayList<Reimbursement>();
     }
+    public Account(String username,String password){
+        this.username = username;
+        this.password = password;
+    }
     public Account(String firstName, String lastName,String username,String password,Role role ){
         this.firstName = firstName;
         this.lastName = lastName;

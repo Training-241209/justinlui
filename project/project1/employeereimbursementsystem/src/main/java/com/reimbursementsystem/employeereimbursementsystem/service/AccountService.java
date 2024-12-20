@@ -29,7 +29,7 @@ public class AccountService {
     public Account getAccountByUsername(String username){
         return this.accountRepository.findByUsername(username);
     }
-
+    
     public Account createAccount(Account account){
         Role createdRole = this.roleService.createRole(account.getRole().getRoleName());
         account.setRole(createdRole);
@@ -50,5 +50,15 @@ public class AccountService {
         Account pulledAccount = account;
         this.accountRepository.deleteById(account.getAccountId());
         return pulledAccount;
+    }
+    public Account login(Account account){
+        Account existingAccount = this.getAccountByUsername(account.getUserName());
+        if(BCrypt.checkpw(account.getPassword(),existingAccount.getPassword())){
+            System.out.println("ITS GOOOOOOOOOD");
+            return existingAccount;
+        }else{
+            return null;
+        }
+        
     }
 }
